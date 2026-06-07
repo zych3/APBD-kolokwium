@@ -8,7 +8,7 @@ namespace Apbd.Kolos.Controllers;
 [Route("api/[controller]")]
 public class CustomersController(IDbService db) : ControllerBase
 {
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:int}/purchases")]
     public async Task<IActionResult> GetById(int id)
     {
         try
