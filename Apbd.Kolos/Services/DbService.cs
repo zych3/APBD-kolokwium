@@ -8,34 +8,6 @@ namespace Apbd.Kolos.Services;
 
 public class DbService(AppDbContext db) : IDbService
 {
-    public async Task<IEnumerable<GetCustomerDto>> GetAllAsync()
-    {
-        var dtos = await db.Customers
-            .Select(c => new GetCustomerDto
-            {
-                FirstName = c.FirstName,
-                LastName = c.LastName,
-                PhoneNumber = c.PhoneNumber,
-                Purchases = c.PurchasedTickets
-                    .Select(pc => new GetPurchaseDto
-                    {
-                        Date = pc.PurchaseDate,
-                        Price = pc.TicketConcert.Price,
-                        Ticket = new GetTicketDto
-                        {
-                            Serial = pc.TicketConcert.Ticket.SerialNumber,
-                            SeatNumber = pc.TicketConcert.Ticket.SeatNumber
-                        },
-                        Concert = new GetConcertDto
-                        {
-                            Name = pc.TicketConcert.Concert.Name,
-                            Date = pc.TicketConcert.Concert.Date,
-                        }
-                    }).ToList()
-            }).ToListAsync();
-        return dtos;
-    }
-
     public async Task<GetCustomerDto> GetByIdAsync(int id)
     {
         var customer = await db.Customers

@@ -8,12 +8,6 @@ namespace Apbd.Kolos.Controllers;
 [Route("api/[controller]")]
 public class CustomersController(IDbService db) : ControllerBase
 {
-    [HttpGet]
-    public async Task<IActionResult> Get()
-    {
-        return Ok(await db.GetAllAsync());
-    }
-
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetById(int id)
     {
